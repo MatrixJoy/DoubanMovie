@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">豆瓣电影</string>
+    <string-array name="tabsTitle">
+        <item>TOP250</item>
+        <item>北美票房榜</item>
+    </string-array>
+</resources>
