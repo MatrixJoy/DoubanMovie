@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">豆瓣电影</string>
+    <string name="error_tips">哎呀，出现了某些问题，下拉刷新试试?</string>
     <string-array name="tabsTitle">
         <item>TOP250</item>
         <item>北美票房榜</item>

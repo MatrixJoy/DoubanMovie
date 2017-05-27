@@ -13,7 +13,7 @@ object Util {
     fun isOnle(): Boolean {
         val connMgr: ConnectivityManager = App.getContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netWorkInfo: NetworkInfo = connMgr.activeNetworkInfo
-        return netWorkInfo.isConnected
+        val netWorkInfo: NetworkInfo? = connMgr.activeNetworkInfo
+        return netWorkInfo != null && netWorkInfo.isConnected
     }
 }
