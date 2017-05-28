@@ -1,11 +1,14 @@
 package com.aidchow.doubanmovie.data.source.remote
 
+import com.aidchow.doubanmovie.data.Celebrity
 import com.aidchow.doubanmovie.data.Movie
+import com.aidchow.doubanmovie.data.MovieSubject
 import com.aidchow.doubanmovie.data.source.MoviesDataSource
 import com.aidchow.doubanmovie.retrofit.API
-import com.aidchow.doubanmovie.retrofit.APIServise
+import com.aidchow.doubanmovie.retrofit.APIService
 import com.aidchow.doubanmovie.retrofit.BaseRetrofit
 import com.aidchow.doubanmovie.retrofit.CustemCallBack
+import retrofit2.Call
 import retrofit2.Response
 
 /**
@@ -13,10 +16,6 @@ import retrofit2.Response
  */
 class MoviesRemoteDataSource private constructor() : MoviesDataSource {
 
-
-
-    private val movieTypes = listOf("us_box", "top250")
-    private val call: APIServise = BaseRetrofit.retrofit(API.BASE_URL).create(APIServise::class.java)
 
     companion object {
         private var INSTANCE: MoviesRemoteDataSource? = null
@@ -29,81 +28,61 @@ class MoviesRemoteDataSource private constructor() : MoviesDataSource {
             }
     }
 
-    /**
-     *access the data from network
-     * @queryType the text of query
-     * @callBack call back when request is response
-     */
-    override fun getMovies(queryType: String, callBack: MoviesDataSource.LoadMoviesCallBack) {
-
-        when (queryType) {
-            "top250" -> call.getMovies(queryType).enqueue(object : CustemCallBack<Movie>() {
-                override fun onSuccess(response: Response<Movie>?) {
-                    callBack.onMoviesLoaded(response?.body()!!)
-                }
-
-                override fun onFail(message: String) {
-                    callBack.onMoviesLoadFailed(message)
-                }
-
-            })
-//            else -> call.searchMovies(queryType).enqueue(object : CustemCallBack<Movie>() {
-//                override fun onSuccess(response: Response<Movie>?) {
-//                    callBack.onMoviesLoaded(response?.body()!!)
-//                }
-//
-//                override fun onFail(message: String) {
-//                    callBack.onMoviesLoadFailed(message)
-//                }
-//            })
-        }
-    }
-
-    /**
-     *load more data from network
-     * @queryType the query text
-     * @start the next items start position
-     */
-    override fun loadMoreMovies(queryType: String, start: Int, callBack: MoviesDataSource.LoadMoviesCallBack) {
-        when (queryType) {
-            in movieTypes -> call.loadMoreMovies(queryType, start)
-                    .enqueue(object : CustemCallBack<Movie>() {
-                        override fun onSuccess(response: Response<Movie>?) {
-                            callBack.onMoviesLoaded(response?.body()!!)
-                        }
-
-                        override fun onFail(message: String) {
-                            callBack.onMoviesLoadFailed(message)
-                        }
-                    })
-            else -> call.searchMoviesLoadMore(queryType, start)
-                    .enqueue(object : CustemCallBack<Movie>() {
-                        override fun onSuccess(response: Response<Movie>?) {
-                            callBack.onMoviesLoaded(response?.body()!!)
-                        }
-
-                        override fun onFail(message: String) {
-                            callBack.onMoviesLoadFailed(message)
-                        }
-                    })
-        }
-
-    }
 
     override fun searchMovies(queryText: String, callBack: MoviesDataSource.LoadMoviesCallBack) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val call: Call<Movie> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
+                .searchMovies(queryText)
+        call.enqueue(object : CustemCallBack<Movie>() {
+            override fun onSuccess(response: Response<Movie>?) {
+                callBack.onMoviesLoaded(response?.body()!!)
+            }
+
+            override fun onFail(message: String) {
+                callBack.onMoviesLoadFailed(message)
+            }
+        })
     }
 
-    override fun loadTop250Movies(start: Int, callBack: MoviesDataSource.LoadMoviesCallBack) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun loadTop250Movies(start: Int, count: Int, callBack: MoviesDataSource.LoadMoviesCallBack) {
+        val call: Call<Movie> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
+                .loadTopW250Movies(start, count)
+        call.enqueue(object : CustemCallBack<Movie>() {
+            override fun onSuccess(response: Response<Movie>?) {
+                callBack.onMoviesLoaded(response?.body()!!)
+            }
+
+            override fun onFail(message: String) {
+                callBack.onMoviesLoadFailed(message)
+            }
+        })
     }
 
 
     override fun loadMovieSubject(movieId: Int, callBack: MoviesDataSource.LoadMovieSubjectCallBack) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val call: Call<MovieSubject> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
+                .loadMovieSubject(movieId)
+        call.enqueue(object : CustemCallBack<MovieSubject>() {
+            override fun onSuccess(response: Response<MovieSubject>?) {
+                callBack.onMovieSubjectLoaded(response?.body()!!)
+            }
+
+            override fun onFail(message: String) {
+                callBack.onMovieSubjectLoadFailed(message)
+            }
+        })
     }
 
-    override fun loadCelebrity(starId: Int, callBack: MoviesDataSource.LoadCelebirtyCallBack) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun loadCelebrity(starId: Int, callBack: MoviesDataSource.LoadCelebrityCallBack) {
+        val call: Call<Celebrity> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
+                .loadCelebrity(starId)
+        call.enqueue(object : CustemCallBack<Celebrity>() {
+            override fun onSuccess(response: Response<Celebrity>?) {
+                callBack.onCelebrityLoaded(response?.body()!!)
+            }
+
+            override fun onFail(message: String) {
+                callBack.onCelebrityLoadFailed(message)
+            }
+        })
     }
 }

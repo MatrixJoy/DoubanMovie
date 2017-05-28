@@ -20,24 +20,20 @@ interface MoviesDataSource {
         fun onMovieSubjectLoadFailed(message: String)
     }
 
-    interface LoadCelebirtyCallBack {
-        fun onCelebirtyLoaded(celebrity: Celebrity)
+    interface LoadCelebrityCallBack {
+        fun onCelebrityLoaded(celebrity: Celebrity)
 
-        fun onCelebirtyLoadFailed(message: String)
+        fun onCelebrityLoadFailed(message: String)
     }
 
-    fun getMovies(queryType: String, callBack: LoadMoviesCallBack)
-
-    //load more movies
-    fun loadMoreMovies(queryType: String, start: Int, callBack: LoadMoviesCallBack)
 
     //load douban movie top250 ranking
-    fun loadTop250Movies(start: Int, callBack: LoadMoviesCallBack)
+    fun loadTop250Movies(start: Int, count: Int = 10, callBack: LoadMoviesCallBack)
 
     //search movies by query text
     fun searchMovies(queryText: String, callBack: LoadMoviesCallBack)
 
     fun loadMovieSubject(movieId: Int, callBack: LoadMovieSubjectCallBack)
 
-    fun loadCelebrity(starId: Int, callBack: LoadCelebirtyCallBack)
+    fun loadCelebrity(starId: Int, callBack: LoadCelebrityCallBack)
 }
