@@ -7,6 +7,7 @@ import com.aidchow.doubanmovie.data.Movie
  */
 class MoviesRepository private constructor(moviesRemoteDataSource: MoviesDataSource) : MoviesDataSource {
 
+
     private val mMoviesRemoteDataSource: MoviesDataSource = moviesRemoteDataSource
 
     companion object {
@@ -29,12 +30,10 @@ class MoviesRepository private constructor(moviesRemoteDataSource: MoviesDataSou
         mMoviesRemoteDataSource.getMovies(queryType, object : MoviesDataSource.LoadMoviesCallBack {
             override fun onMoviesLoaded(movies: Movie) {
                 callBack.onMoviesLoaded(movies)
-                println(movies.toString())
             }
 
             override fun onMoviesLoadFailed(message: String) {
                 callBack.onMoviesLoadFailed(message)
-                println(message)
             }
         })
     }
@@ -50,4 +49,21 @@ class MoviesRepository private constructor(moviesRemoteDataSource: MoviesDataSou
             }
         })
     }
+
+    override fun loadTop250Movies(start: Int, callBack: MoviesDataSource.LoadMoviesCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun searchMovies(queryText: String, callBack: MoviesDataSource.LoadMoviesCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadMovieSubject(movieId: Int, callBack: MoviesDataSource.LoadMovieSubjectCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadCelebrity(starId: Int, callBack: MoviesDataSource.LoadCelebirtyCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }

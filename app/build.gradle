@@ -39,6 +39,7 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     kapt "com.android.databinding:compiler:$android_plugin_version"
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.17'
 }
 repositories {
     mavenCentral()

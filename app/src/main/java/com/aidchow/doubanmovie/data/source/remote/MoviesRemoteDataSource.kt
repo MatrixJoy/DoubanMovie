@@ -12,6 +12,9 @@ import retrofit2.Response
  * Created by aidchow on 17-5-27.
  */
 class MoviesRemoteDataSource private constructor() : MoviesDataSource {
+
+
+
     private val movieTypes = listOf("us_box", "top250")
     private val call: APIServise = BaseRetrofit.retrofit(API.BASE_URL).create(APIServise::class.java)
 
@@ -85,5 +88,22 @@ class MoviesRemoteDataSource private constructor() : MoviesDataSource {
                     })
         }
 
+    }
+
+    override fun searchMovies(queryText: String, callBack: MoviesDataSource.LoadMoviesCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadTop250Movies(start: Int, callBack: MoviesDataSource.LoadMoviesCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun loadMovieSubject(movieId: Int, callBack: MoviesDataSource.LoadMovieSubjectCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadCelebrity(starId: Int, callBack: MoviesDataSource.LoadCelebirtyCallBack) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

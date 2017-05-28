@@ -13,6 +13,10 @@ interface APIServise {
     @GET("/v2/movie/{type}")
     fun getMovies(@Path("type") type: String): Call<Movie>
 
+    @GET("/v2/movie/top250")
+    fun loadTopW250Movies(@Query("start") start: Int,
+                          @Query("count") count: Int): Call<Movie>
+
     //query text
     @GET("v2/movie/search")
     fun searchMovies(@Query("q") q: String): Call<Movie>

@@ -2,6 +2,7 @@ package com.aidchow.doubanmovie.data
 
 /**
  * Created by aidchow on 17-5-26.
+ * movie list
  */
 
 class Movie {
