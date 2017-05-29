@@ -1,47 +1,46 @@
 package com.aidchow.doubanmovie.movies
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import com.aidchow.doubanmovie.R
+import com.aidchow.doubanmovie.ViewModelHolder
+import com.aidchow.doubanmovie.data.source.MoviesRepository
+import com.aidchow.doubanmovie.data.source.remote.MoviesRemoteDataSource
+import com.aidchow.doubanmovie.util.ActivityUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    val MOVIES_VIEWMODEL_TAG: String = "MOVIES_VIEWMODEL_TAG"
 
+    private lateinit var mViewModel: MoviesViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        toolbar.setTitle(R.string.app_name)
+        mViewModel = findOrCreateViewModel()
+    }
 
-        val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        viewpager.adapter = viewPagerAdapter
-        tab_layout.setupWithViewPager(viewpager)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    private fun findOrCreateViewModel(): MoviesViewModel {
+        val retainedViewModel: ViewModelHolder<*>? = supportFragmentManager
+                .findFragmentByTag(MOVIES_VIEWMODEL_TAG) as? ViewModelHolder<*>
+        if (retainedViewModel != null) {
+            return retainedViewModel.mViewModel as MoviesViewModel
+        } else {
+            val viewModel: MoviesViewModel = MoviesViewModel(
+                    MoviesRepository.getInstance(MoviesRemoteDataSource.instance), this)
+            ActivityUtils.addFragmentToActivity(supportFragmentManager, ViewModelHolder.createContainer(viewModel)
+                    , MOVIES_VIEWMODEL_TAG)
+            return viewModel
+        }
 
     }
 
-    inner class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-        override fun getCount(): Int {
-            return 2
-        }
-
-        override fun getItem(position: Int): Fragment {
-            var frag: Fragment? = null
-            when (position) {
-                0 -> frag = MoviesFrag.newInstance("大话西游")
-                1 -> frag = MoviesFrag.newInstance("环太平洋")
-            }
-            return frag!!
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            val res = resources
-            return res.getStringArray(R.array.tabsTitle)[position]
-        }
-
-    }
 
 }

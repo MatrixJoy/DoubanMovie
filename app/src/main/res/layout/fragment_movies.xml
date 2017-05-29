@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        <import type="android.view.View" />
 
-    <TextView
+        <variable
+            name="movie"
+            type="com.aidchow.doubanmovie.data.Movie" />
+
+        <variable
+            name="viewModel"
+            type="com.aidchow.doubanmovie.movies.MoviesViewModel" />
+    </data>
+
+    <com.aidchow.doubanmovie.ui.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:refreshing="@{viewModel.dataLoading}">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/movies_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:items="@{viewModel.items}" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{viewModel.errorLabel}"
+                android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}" />
+        </RelativeLayout>
+
+    </com.aidchow.doubanmovie.ui.ScrollChildSwipeRefreshLayout>
+
+</layout>
