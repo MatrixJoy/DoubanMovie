@@ -7,38 +7,44 @@
         <import type="android.view.View" />
 
         <variable
-            name="movie"
-            type="com.aidchow.doubanmovie.data.Movie" />
-
-        <variable
             name="viewModel"
             type="com.aidchow.doubanmovie.movies.MoviesViewModel" />
     </data>
 
-    <com.aidchow.doubanmovie.ui.ScrollChildSwipeRefreshLayout
-        android:id="@+id/refresh_layout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:refreshing="@{viewModel.dataLoading}">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movies_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:items="@{viewModel.items}" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/movies_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:items="@{viewModel.items}" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="@{viewModel.dataLoading?View.VISIBLE:View.GONE}" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@{viewModel.errorLabel}"
-                android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_error_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/error_tips"
+            android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}" />
 
-    </com.aidchow.doubanmovie.ui.ScrollChildSwipeRefreshLayout>
+        <TextView
+            android:id="@+id/tv_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_error_tips"
+            android:layout_centerInParent="true"
+            android:text="@string/click_reload"
+            android:textColor="@android:color/holo_blue_light"
+            android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}" />
+    </RelativeLayout>
+
 
 </layout>

@@ -8,9 +8,10 @@ import com.aidchow.doubanmovie.ViewModelHolder
 import com.aidchow.doubanmovie.data.source.MoviesRepository
 import com.aidchow.doubanmovie.data.source.remote.MoviesRemoteDataSource
 import com.aidchow.doubanmovie.util.ActivityUtils
+import com.aidchow.doubanmovie.util.SnackBarUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MovieItemNavigator {
 
     val MOVIES_VIEWMODEL_TAG: String = "MOVIES_VIEWMODEL_TAG"
 
@@ -20,6 +21,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         mViewModel = findOrCreateViewModel()
+        var fragment: MoviesFragment? = supportFragmentManager.findFragmentById(R.id.frame_container) as? MoviesFragment
+        if (fragment == null) {
+            fragment = MoviesFragment.newInstance()
+            ActivityUtils.addFragmentToActivity(supportFragmentManager, fragment, R.id.frame_container)
+        }
+
+        fragment.setViewModel(mViewModel)
+    }
+
+    override fun onDestroy() {
+        mViewModel.onActivityDestroyed()
+        super.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,5 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    override fun openMovieSubject(movieID: Int) {
+        SnackBarUtils.showSnackBar(toolbar, movieID.toString())
+    }
 }

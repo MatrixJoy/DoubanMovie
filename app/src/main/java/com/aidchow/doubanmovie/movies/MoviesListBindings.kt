@@ -10,11 +10,13 @@ import com.aidchow.doubanmovie.data.Movie
  */
 object MoviesListBindings {
     @BindingAdapter("app:items")
-    @JvmStatic fun setItems(recyclerView: RecyclerView, items: List<Movie.SubjectsBean>) {
+    @JvmStatic fun setItems(recyclerView: RecyclerView, items: List<Movie.SubjectsBean>?) {
         val adapter: RecyclerView.Adapter<*>? = recyclerView.adapter
         if (adapter != null) {
             adapter as MoviesAdapter
-            adapter.setDatas(items)
+            if (items != null) {
+                adapter.addData(items)
+            }
         }
     }
 }
