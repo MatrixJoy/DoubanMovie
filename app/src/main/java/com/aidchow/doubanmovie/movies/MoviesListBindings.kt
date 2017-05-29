@@ -14,8 +14,7 @@ object MoviesListBindings {
         val adapter: RecyclerView.Adapter<*>? = recyclerView.adapter
         if (adapter != null) {
             adapter as MoviesAdapter
-            adapter.setDatas(data = items)
-            println(items.toString())
+            adapter.setDatas(items)
         }
     }
 }

@@ -5,4 +5,6 @@
         <item>TOP250</item>
         <item>北美票房榜</item>
     </string-array>
+    <string name="search_hint">搜索电影内容</string>
+    <string name="about">关于</string>
 </resources>

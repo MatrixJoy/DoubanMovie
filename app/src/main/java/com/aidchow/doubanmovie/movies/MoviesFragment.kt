@@ -19,21 +19,15 @@ import kotlinx.android.synthetic.main.fragment_movies.*
  * Created by aidchow on 17-5-26.
  * Movies Fragment to show the movies list
  */
-class MoviesFrag : Fragment() {
+class MoviesFragment : Fragment() {
 
-    private object MovieType {
-        const val MOVIE_TYPE: String = "type"
-    }
 
     private lateinit var mMovieViewModel: MoviesViewModel
     private lateinit var mMoviesFagDataBinding: FragmentMoviesBinding
 
     companion object {
-        fun newInstance(type: String): MoviesFrag {
-            val bundle = Bundle()
-            bundle.putString(MovieType.MOVIE_TYPE, type)
-            val movFrag = MoviesFrag()
-            movFrag.arguments = bundle
+        fun newInstance(): MoviesFragment {
+            val movFrag = MoviesFragment()
             return movFrag
         }
     }
@@ -53,8 +47,6 @@ class MoviesFrag : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        println(arguments.getString(MovieType.MOVIE_TYPE))
-        mMovieViewModel.loadMovies(arguments.getString(MovieType.MOVIE_TYPE))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

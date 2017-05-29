@@ -1,8 +1,6 @@
 package com.aidchow.doubanmovie.data.source.remote
 
-import com.aidchow.doubanmovie.data.Celebrity
 import com.aidchow.doubanmovie.data.Movie
-import com.aidchow.doubanmovie.data.MovieSubject
 import com.aidchow.doubanmovie.data.source.MoviesDataSource
 import com.aidchow.doubanmovie.retrofit.API
 import com.aidchow.doubanmovie.retrofit.APIService
@@ -53,35 +51,6 @@ class MoviesRemoteDataSource private constructor() : MoviesDataSource {
 
             override fun onFail(message: String) {
                 callBack.onMoviesLoadFailed(message)
-            }
-        })
-    }
-
-
-    override fun loadMovieSubject(movieId: Int, callBack: MoviesDataSource.LoadMovieSubjectCallBack) {
-        val call: Call<MovieSubject> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
-                .loadMovieSubject(movieId)
-        call.enqueue(object : CustemCallBack<MovieSubject>() {
-            override fun onSuccess(response: Response<MovieSubject>?) {
-                callBack.onMovieSubjectLoaded(response?.body()!!)
-            }
-
-            override fun onFail(message: String) {
-                callBack.onMovieSubjectLoadFailed(message)
-            }
-        })
-    }
-
-    override fun loadCelebrity(starId: Int, callBack: MoviesDataSource.LoadCelebrityCallBack) {
-        val call: Call<Celebrity> = BaseRetrofit.retrofit(API.BASE_URL).create(APIService::class.java)
-                .loadCelebrity(starId)
-        call.enqueue(object : CustemCallBack<Celebrity>() {
-            override fun onSuccess(response: Response<Celebrity>?) {
-                callBack.onCelebrityLoaded(response?.body()!!)
-            }
-
-            override fun onFail(message: String) {
-                callBack.onCelebrityLoadFailed(message)
             }
         })
     }
