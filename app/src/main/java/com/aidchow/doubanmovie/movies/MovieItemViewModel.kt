@@ -1,38 +1,35 @@
 package com.aidchow.doubanmovie.movies
 
 import android.content.Context
-import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.databinding.ObservableField
-import com.aidchow.doubanmovie.data.Movie
+import com.aidchow.doubanmovie.MovieViewModel
 import com.aidchow.doubanmovie.data.source.MoviesRepository
+import java.lang.ref.WeakReference
 
 /**
  * Created by aidchow on 17-5-27.
  */
-class MovieItemViewModel(context: Context, moviesRepository: MoviesRepository) : BaseObservable() {
-    val title: ObservableField<String> = ObservableField()
+class MovieItemViewModel(context: Context, moviesRepository: MoviesRepository)
+    : MovieViewModel(context, moviesRepository) {
+    val positionObservable:ObservableField<String> = ObservableField()
 
-    val mContext: Context = context
-    val mMovieRepositoy: MoviesRepository = moviesRepository
+    var mNavigator:WeakReference<MovieItemNavigator>?=null
 
-    val mMovieObservable: ObservableField<Movie> = ObservableField()
-
-//    init {
-//        mMovieObservable.addOnPropertyChangedCallback(object : Observable.OnPropertyChangedCallback() {
-//            override fun onPropertyChanged(p0: Observable?, p1: Int) {
-//                val movie: Movie = mMovieObservable.get()
-//            }
-//        })
-//    }
-
-    fun setMovie(movie: Movie.SubjectsBean) {
-        println(movie.title)
-        title.set(movie.title)
+    fun setNavigator(navigator: MovieItemNavigator?){
+        mNavigator= WeakReference<MovieItemNavigator>(navigator)
+    }
+    fun setPosition(poi:Int){
+        positionObservable.set(poi.toString())
     }
 
     @Bindable
-    fun getMovieTitle(): String {
-        return title.get()
+    fun getPoi():String{
+        return positionObservable.get()
+    }
+    fun movieClicked(){
+      if (mNavigator!=null&&mNavigator?.get()!=null){
+          mNavigator?.get()?.openMovieSubject(getMovieId())
+      }
     }
 }

@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">豆瓣电影</string>
-    <string name="error_tips">哎呀，出现了某些问题，下拉刷新试试?</string>
+    <string name="error_tips">哎呀，出现了某些问题!</string>
     <string-array name="tabsTitle">
         <item>TOP250</item>
         <item>北美票房榜</item>
     </string-array>
     <string name="search_hint">搜索电影内容</string>
     <string name="about">关于</string>
+    <string name="click_reload">点我重试</string>
 </resources>
