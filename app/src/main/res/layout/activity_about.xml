@@ -17,23 +17,9 @@
             android:layout_height="?attr/actionBarSize" />
     </android.support.design.widget.AppBarLayout>
 
-
-    <ProgressBar
-        android:id="@+id/myProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <FrameLayout
+        android:id="@+id/about_frame_container"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
-
-    <com.aidchow.doubanmovie.ui.widget.ScrollChildSwipeRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <WebView
-            android:id="@+id/web_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </com.aidchow.doubanmovie.ui.widget.ScrollChildSwipeRefreshLayout>
-
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

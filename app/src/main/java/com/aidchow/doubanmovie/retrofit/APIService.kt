@@ -23,10 +23,10 @@ interface APIService {
     @GET("v2/movie/search")
     fun searchMovies(@Query("q") q: String): Call<Movie>
 
-    @GET("/V2/movie/celebrity/{id}")
+    @GET("/v2/movie/celebrity/{id}")
     fun loadCelebrity(@Path("id") id: Int): Call<Celebrity>
 
-    @GET("/V2/movie/subject/{id}")
+    @GET("/v2/movie/subject/{id}")
     fun loadMovieSubject(@Path("id") id: Int): Call<MovieSubject>
 
 }

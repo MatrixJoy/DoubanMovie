@@ -17,6 +17,7 @@ abstract class CustemCallBack<T> : Callback<T> {
             }
         }
 
+        println(call?.request()?.url())
     }
 
     override fun onFailure(call: Call<T>?, t: Throwable?) {

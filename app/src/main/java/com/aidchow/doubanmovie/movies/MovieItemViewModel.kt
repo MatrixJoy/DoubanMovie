@@ -12,24 +12,26 @@ import java.lang.ref.WeakReference
  */
 class MovieItemViewModel(context: Context, moviesRepository: MoviesRepository)
     : MovieViewModel(context, moviesRepository) {
-    val positionObservable:ObservableField<String> = ObservableField()
+    val positionObservable: ObservableField<String> = ObservableField()
 
-    var mNavigator:WeakReference<MovieItemNavigator>?=null
+    var mNavigator: WeakReference<MovieItemNavigator>? = null
 
-    fun setNavigator(navigator: MovieItemNavigator?){
-        mNavigator= WeakReference<MovieItemNavigator>(navigator)
+    fun setNavigator(navigator: MovieItemNavigator?) {
+        mNavigator = WeakReference<MovieItemNavigator>(navigator)
     }
-    fun setPosition(poi:Int){
+
+    fun setPosition(poi: Int) {
         positionObservable.set(poi.toString())
     }
 
     @Bindable
-    fun getPoi():String{
+    fun getPoi(): String {
         return positionObservable.get()
     }
-    fun movieClicked(){
-      if (mNavigator!=null&&mNavigator?.get()!=null){
-          mNavigator?.get()?.openMovieSubject(getMovieId())
-      }
+
+    fun movieClicked() {
+        if (mNavigator != null && mNavigator?.get() != null) {
+            mNavigator?.get()?.openMovieSubject(getMovieId())
+        }
     }
 }

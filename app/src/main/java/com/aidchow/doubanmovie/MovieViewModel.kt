@@ -11,7 +11,7 @@ import com.aidchow.doubanmovie.data.source.MoviesRepository
 /**
  * Created by aidchow on 17-5-29.
  */
-abstract class MovieViewModel(var context: Context, var moviesRepository: MoviesRepository)
+abstract class MovieViewModel( context: Context, var moviesRepository: MoviesRepository)
     : BaseObservable() {
 
     val snackBarText: ObservableField<String> = ObservableField()
@@ -20,7 +20,7 @@ abstract class MovieViewModel(var context: Context, var moviesRepository: Movies
     val mMovieObservable: ObservableField<Movie.SubjectsBean> = ObservableField()
     val mRatingObservable: ObservableField<Float> = ObservableField()
 
-    private val mContex: Context = context.applicationContext
+    private val mContext: Context = context.applicationContext
     private val mMoviesRepository: MoviesRepository = moviesRepository
 
 
@@ -54,25 +54,26 @@ abstract class MovieViewModel(var context: Context, var moviesRepository: Movies
 
         }
         var result = directorsText.toString()
-        result=result.substring(0,result.length-1)
+        result = result.substring(0, result.length - 1)
         mDirectorsObservable.set(result)
         return mDirectorsObservable.get()
     }
 
     @Bindable
     fun getCasts(): String {
-        val castsText: StringBuilder = StringBuilder().append( "演员：")
+        val castsText: StringBuilder = StringBuilder().append("演员：")
         for (directors: Movie.SubjectsBean.CastsBean in mMovieObservable.get()?.casts!!) {
             castsText.append(directors.name)
                     .append("/")
         }
         var result = castsText.toString()
-        result =result.substring(0, result.length-1)
+        result = result.substring(0, result.length - 1)
         mCastsObservable.set(result)
         return mCastsObservable.get()
     }
+
     @Bindable
-    fun getMovieImageUrl():String{
+    fun getMovieImageUrl(): String {
         return mMovieObservable.get().images?.medium.toString()
     }
 
@@ -84,6 +85,16 @@ abstract class MovieViewModel(var context: Context, var moviesRepository: Movies
 
     fun getSnackBarText(): String {
         return snackBarText.get()
+    }
+
+    fun getStatuBarHeight(): Int {
+        var result = 0
+        val resourceId = mContext.resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = mContext.resources.getDimensionPixelSize(resourceId)
+        }
+
+        return (result)
     }
 
 }

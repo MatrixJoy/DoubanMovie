@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-</RelativeLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.aidchow.doubanmovie.celebrity.CelebrityItemViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin"
+        android:onClick="@{()->viewModel.movieClicked()}">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/item_margin">
+
+            <ImageView
+                android:id="@+id/image_movie"
+                android:layout_width="64dp"
+                android:layout_height="96dp"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@{viewModel.movieImageUrl}" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/image_movie"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@+id/image_movie">
+
+                <TextView
+                    android:id="@+id/tv_movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.movieTitle}"
+                    android:textColor="@android:color/black" />
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/rating_bar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_movie_title"
+                    android:numStars="5"
+                    android:rating="@{viewModel.rating}"
+                    android:stepSize="10"
+                    android:textAlignment="viewEnd" />
+
+                <TextView
+                    android:id="@+id/tv_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/rating_bar"
+                    android:layout_below="@+id/tv_movie_title"
+                    android:layout_toEndOf="@+id/rating_bar"
+                    android:gravity="center_vertical"
+                    android:text="@{viewModel.ratinText}"
+                    android:textSize="@dimen/item_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_roles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_rating"
+                    android:text="@{viewModel.roles}"
+                    android:textSize="@dimen/item_text_size" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</layout>

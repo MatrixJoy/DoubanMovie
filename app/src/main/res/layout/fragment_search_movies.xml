@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.aidchow.doubanmovie.searchmovie.SearchViewModel"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            app:paddingTop="@{viewModel.statuBarHeight}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:minHeight="?attr/actionBarSize">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar.Search"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleMarginEnd="0dp"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:imeOptions="actionSearch|flagNoExtractUi"
+                    app:defaultQueryHint="@string/search_hint"
+                   style="@style/Widget.SearchView" />
+                </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:items="@{viewModel.items}"/>
+
+    <TextView
+        android:id="@+id/tv_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_search_result"
+        android:layout_centerInParent="true"
+        android:visibility="@{viewModel.empty?View.VISIBLE:View.GONE}" />
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="@{viewModel.dataLoading?View.VISIBLE:View.GONE}" />
+
+    <TextView
+        android:id="@+id/tv_error_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/error_tips"
+        android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}" />
+
+    <TextView
+        android:id="@+id/tv_reload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_error_tips"
+        android:layout_centerInParent="true"
+        android:text="@string/click_reload"
+        android:textColor="@android:color/holo_blue_light"
+        android:visibility="@{viewModel.errorViewVisible?View.VISIBLE:View.GONE}"/>
+</RelativeLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

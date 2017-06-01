@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="aboutLibraries_description_name">豆瓣电影TOP250</string>
+    <string name="aboutLibraries_description_showIcon">true</string>
+    <string name="aboutLibraries_description_showVersion">true</string>
+    <string name="aboutLibraries_description_text">
+        <![CDATA[<b>豆瓣电影top250</b>
+        <br/>
+        <br/>
+        <b>kotlin开发,MVVM架构</b>
+        <br/>
+        <br/>
+        <br/>
+        <b>项目地址
+        <a href="https://github.com/zhoujunjiang/DoubanMovie">戳这儿</a>
+        </b>
+        ]]>
+    </string>
+</resources>

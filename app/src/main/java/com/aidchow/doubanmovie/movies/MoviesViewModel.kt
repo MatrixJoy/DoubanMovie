@@ -14,7 +14,6 @@ class MoviesViewModel(repository: MoviesRepository, context: Context) : BaseObse
 
     val snackBarText: ObservableField<String> = ObservableField()
     val items: ObservableList<Movie.SubjectsBean> = ObservableArrayList()
-    val errorLabel: ObservableField<String> = ObservableField()
     val errorViewVisible: ObservableBoolean = ObservableBoolean()
     val dataLoading: ObservableBoolean = ObservableBoolean()
     val mMovieRepository: MoviesRepository = repository
@@ -23,6 +22,8 @@ class MoviesViewModel(repository: MoviesRepository, context: Context) : BaseObse
     val loadMoreComplete: ObservableBoolean = ObservableBoolean()
     val loadMoreEnd: ObservableBoolean = ObservableBoolean()
     val loadMoreError: ObservableBoolean = ObservableBoolean()
+
+    var mNavigator: MoviesNavigator? = null
     internal fun onActivityDestroyed() {
         //Clear reference to avoid potential memory leaks
         START.start = 10
@@ -36,12 +37,21 @@ class MoviesViewModel(repository: MoviesRepository, context: Context) : BaseObse
         loadMovies(0, true)
     }
 
+    fun setNavigator(navigator: MoviesNavigator?) {
+        mNavigator = navigator
+    }
+
+    fun openSearchMovies() {
+        if (mNavigator != null) {
+            mNavigator?.onSearchClick()
+        }
+    }
+
 
     fun loadMovies(start: Int, showLoadingUI: Boolean, loadMore: Boolean = false) {
         if (showLoadingUI) {
             dataLoading.set(true)
         }
-        println("加载位置　" + start)
         mMovieRepository.loadTop250Movies(start, 50, callBack = object : MoviesDataSource.LoadMoviesCallBack {
             override fun onMoviesLoaded(movies: Movie) {
                 if (showLoadingUI) {
@@ -54,7 +64,7 @@ class MoviesViewModel(repository: MoviesRepository, context: Context) : BaseObse
                 if (loadMore) {
                     if (start == movies.total) {
                         loadMoreEnd.set(true)
-                    }else{
+                    } else {
                         loadMoreComplete.set(true)
                     }
                 }
@@ -97,6 +107,15 @@ class MoviesViewModel(repository: MoviesRepository, context: Context) : BaseObse
         return loadMoreError.get()
     }
 
+    fun getStatuBarHeight(): Int {
+        var result = 0
+        val resourceId = mContext.resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = mContext.resources.getDimensionPixelSize(resourceId)
+        }
+
+        return (result)
+    }
 }
 
 

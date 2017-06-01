@@ -1,4 +1,4 @@
-package com.aidchow.doubanmovie.ui
+package com.aidchow.doubanmovie.ui.widget
 
 import android.content.Context
 import android.support.v4.view.ViewCompat

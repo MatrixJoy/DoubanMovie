@@ -1,6 +1,7 @@
 package com.aidchow.doubanmovie.data.source
 
 import com.aidchow.doubanmovie.data.Celebrity
+import com.aidchow.doubanmovie.data.source.remote.CelebrityRemoteDataSource
 
 /**
  * Created by aidchow on 17-5-29.
@@ -14,7 +15,7 @@ class CelebrityRepository private constructor(var mCelebrityDataSource: Celebrit
         private var INSTANCE: CelebrityRepository? = null
 
 
-        fun getInstance(celebrityDataSource: CelebrityDataSource): CelebrityRepository {
+        fun getInstance(celebrityDataSource: CelebrityRemoteDataSource): CelebrityRepository {
             if (INSTANCE == null) {
                 INSTANCE = CelebrityRepository(celebrityDataSource)
             }

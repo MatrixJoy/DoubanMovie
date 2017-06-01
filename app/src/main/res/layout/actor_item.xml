@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-</RelativeLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.aidchow.doubanmovie.moviesubject.ActorItemViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin"
+        android:onClick="@{()->viewModel.openCelebrity()}">
+
+        <ImageView
+            android:id="@+id/image_actor"
+            android:layout_width="64dp"
+            android:layout_height="96dp"
+            android:src="@{viewModel.imageUrl}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image_actor"
+            android:ellipsize="end"
+            android:maxEms="4"
+            android:maxLines="1"
+            android:text="@{viewModel.actorName}" />
+    </RelativeLayout>
+</layout>

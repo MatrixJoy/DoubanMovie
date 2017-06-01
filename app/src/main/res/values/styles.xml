@@ -6,7 +6,38 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Toolbar" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/Toolbar.TextAppearance</item>
+        <item name="android:colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="Toolbar.Search" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+        <item name="titleTextAppearance">@style/Toolbar.TextAppearance</item>
+    </style>
+
+    <style name="Toolbar.TextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="titleTextColor">@android:color/white</item>
+    </style>
+
+    <style name="CollapsingToolbar.Expanded" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CollapsingToolbar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="Widget.SearchView" parent="Base.Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+    </style>
 </resources>
