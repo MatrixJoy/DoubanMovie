@@ -2,6 +2,7 @@ package com.aidchow.doubanmovie.movies
 
 import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import com.aidchow.doubanmovie.adapter.MoviesAdapter
 import com.aidchow.doubanmovie.data.Movie
 
@@ -19,4 +20,13 @@ object MoviesListBindings {
             }
         }
     }
+
+    @BindingAdapter("app:paddingTop")
+    @JvmStatic fun setPadingTop(view: View, padding: Int?) {
+        if (padding != null) {
+            view.setPadding(view.paddingLeft, padding, view.paddingRight, view.paddingBottom)
+        }
+
+    }
+
 }

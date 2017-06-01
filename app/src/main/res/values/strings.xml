@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">豆瓣电影</string>
+    <string name="app_name">TOP250</string>
     <string name="error_tips">哎呀，出现了某些问题!</string>
     <string-array name="tabsTitle">
         <item>TOP250</item>
@@ -8,4 +8,15 @@
     <string name="search_hint">搜索电影内容</string>
     <string name="about">关于</string>
     <string name="click_reload">点我重试</string>
+    <string name="share">分享</string>
+    <string name="douban_rating">豆瓣评分</string>
+    <string name="wish_or_collect_count">%1$s人想看\n%2$s人看过</string>
+    <string name="movie_info">%1$s\n原名：%2$s\n%3$s</string>
+    <string name="ratings_count">%1$s人</string>
+    <string name="movie_summary">简介\n%1$s</string>
+    <string name="actor_info">%1$s/%2$s\n英文名:%3$s\n出生地:%4$s</string>
+    <string name="roles_and_genres">角色:%1$s\n类型:%2$s</string>
+    <string name="share_to">分享到…</string>
+    <string name="search">搜索</string>
+    <string name="no_search_result">没有搜索结果</string>
 </resources>

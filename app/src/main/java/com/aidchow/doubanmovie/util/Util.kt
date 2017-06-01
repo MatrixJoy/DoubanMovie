@@ -16,4 +16,13 @@ object Util {
         val netWorkInfo: NetworkInfo? = connMgr.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isConnected
     }
+
+    fun parseString(str: String): String {
+        val result = str
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "/")
+                .replace(" ", "")
+        return result
+    }
 }

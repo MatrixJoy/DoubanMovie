@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="aboutLibraries_description_name">品花社</string>
+    <string name="aboutLibraries_description_name">豆瓣电影TOP250</string>
     <string name="aboutLibraries_description_showIcon">true</string>
     <string name="aboutLibraries_description_showVersion">true</string>
     <string name="aboutLibraries_description_text">
-        <![CDATA[<b>品花社纯属个人学习所开发，所有数据均来源自</b>
+        <![CDATA[<b>豆瓣电影top250</b>
         <br/>
         <br/>
-        <a href="http://mm36d.com">品花社</a>
+        <b>kotlin开发,MVVM架构</b>
         <br/>
         <br/>
-        <b>如有侵权请来信告知(szquchi@qq.com),谢谢!
         <br/>
-        <b>如果你喜欢的话，可以给我一个
-        <a href="https://github.com/zhoujunjiang/MM36D">Star</a>
+        <b>项目地址
+        <a href="https://github.com/zhoujunjiang/DoubanMovie">戳这儿</a>
         </b>
         ]]>
     </string>

@@ -1,13 +1,12 @@
 package com.aidchow.doubanmovie.movies
 
+import android.content.Context
 import android.databinding.Observable
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.aidchow.doubanmovie.R
 import com.aidchow.doubanmovie.adapter.MoviesAdapter
 import com.aidchow.doubanmovie.data.Movie
@@ -17,6 +16,7 @@ import com.aidchow.doubanmovie.databinding.FragmentMoviesBinding
 import com.aidchow.doubanmovie.util.SnackBarUtils
 import com.chad.library.adapter.base.BaseQuickAdapter
 import kotlinx.android.synthetic.main.fragment_movies.*
+import java.lang.RuntimeException
 
 /**
  * Created by aidchow on 17-5-26.
@@ -24,11 +24,14 @@ import kotlinx.android.synthetic.main.fragment_movies.*
  */
 class MoviesFragment : Fragment(), BaseQuickAdapter.RequestLoadMoreListener {
 
+
     private val TAG: String = "MoviesFragment"
     private var mMovieViewModel: MoviesViewModel? = null
     private var mMoviesFagDataBinding: FragmentMoviesBinding? = null
     private var mSnackBarCallBack: Observable.OnPropertyChangedCallback? = null
     private var mLoadMoreCallBack: Observable.OnPropertyChangedCallback? = null
+    private var act: AppCompatActivity? = null
+    private var listener: OnAboutMenuClickListener? = null
 
     companion object {
         fun newInstance(): MoviesFragment {
@@ -68,8 +71,11 @@ class MoviesFragment : Fragment(), BaseQuickAdapter.RequestLoadMoreListener {
         super.onDestroy()
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        act = activity as AppCompatActivity
+        act?.setSupportActionBar(toolbar)
         val adapter = MoviesAdapter(ArrayList<Movie.SubjectsBean>(0),
                 R.layout.movies_item,
                 MoviesRepository.getInstance(MoviesRemoteDataSource.instance),
@@ -88,18 +94,15 @@ class MoviesFragment : Fragment(), BaseQuickAdapter.RequestLoadMoreListener {
                 if (mMovieViewModel?.getLoadMoreComplete()!!) {
                     adapter.loadMoreComplete()
                     mMovieViewModel?.loadMoreComplete?.set(false)
-                    Log.d(TAG, "加载完成")
                 }
                 if (mMovieViewModel?.getLoadMoreEnd()!!) {
                     adapter.loadMoreEnd()
                     mMovieViewModel?.loadMoreEnd?.set(false)
-                    Log.d(TAG, "加载结束")
 
                 }
                 if (mMovieViewModel?.getLoadMoreError()!!) {
                     adapter.loadMoreFail()
                     mMovieViewModel?.loadMoreError?.set(false)
-                    Log.d(TAG, "加载失败")
                 }
             }
         }
@@ -112,20 +115,49 @@ class MoviesFragment : Fragment(), BaseQuickAdapter.RequestLoadMoreListener {
         tv_reload.setOnClickListener { mMovieViewModel?.start() }
     }
 
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is OnAboutMenuClickListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.about) {
+            if (listener != null) {
+                listener?.onAboutMenuClick()
+            }
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mMoviesFagDataBinding = FragmentMoviesBinding.inflate(inflater, container, false)
         mMoviesFagDataBinding?.viewModel = mMovieViewModel
+        setHasOptionsMenu(true)
         val root = mMoviesFagDataBinding?.root
         return root
     }
+
 
     fun setViewModel(viewModel: MoviesViewModel) {
         mMovieViewModel = viewModel
     }
 
     override fun onLoadMoreRequested() {
-        Log.d(TAG, "onLoadMoreRequested")
         mMovieViewModel?.loadMoreMovies()
+    }
+
+    interface OnAboutMenuClickListener {
+        fun onAboutMenuClick()
     }
 }
