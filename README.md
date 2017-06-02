@@ -8,7 +8,7 @@
 
 ## 下载
 
-[点击下载](https://github.com/zhoujunjiang/DoubanMovie/blob/master/apk/app-release.apk)
+[点击下载](http://www.coolapk.com/apk/com.aidchow.doubanmovie)
 
 ## 说明
 初次使用kotlin进行开发,欢迎交流探讨
